@@ -10,41 +10,43 @@
 # Ловушка не может ничего кроме как атаковать того, кто на нее наступит
 # Для решения этой задачи не используйте наследование
 
-class Obj:
-    ##
-    # тут представлено поведение четырех различных игровых объектов:
-    # - воина
-    # - лекаря
-    # - дерева
-    # - ловушки
-
+# ----------------------------------------------------------------
+class Warrior:
     def attack(self):
-        pass
+        print('Воин смело атакует врага')
 
     def defense(self):
-        pass
+        print('Воин успешно защищается от урона')
 
     def move(self):
-        pass
+        print('Воин ловко перемещается по полю боя')
 
-    def healer_defense(self):
-        pass
 
-    def healer_move(self):
-        pass
+class Healer:
+    def defense(self):
+        print('Лекарь испуганно уворачивается от удара')
+
+    def move(self):
+        print('Лекарь панически спасается бегством')
 
     def heal(self):
-        pass
+        print('Лекарь мгновенно лечит воина')
 
-    def tree_defense(self):
-        pass
+
+class Tree:
+    def defense(self):
+        print('Дерево стоит')
 
     def on_fire(self):
-        pass
+        print('Дерево горит')
 
-    def trap_attack(self):
+
+class Trap:
+    def attack(self):
         print("It's a trap!")
 
+
+# ----------------------------------------------------------------
 if __name__ == '__main__':
     unit = Warrior()
     healer = Healer()

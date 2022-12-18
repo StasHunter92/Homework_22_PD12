@@ -11,40 +11,27 @@
 
 
 class Unit:
-    def move(self, field, x_coord, y_coord, direction, is_fly, crawl, speed = 1):
+    def __init__(self, field: any, unit_type: str, speed: int | float = 1):
+        self._field = field
+        self._type = unit_type
+        self._speed = speed
 
-        if is_fly and crawl:
-            raise ValueError('Рожденный ползать летать не должен!')
+    def move(self, x_coord: int | float, y_coord: int | float, direction: str):
+        speed = self._get_speed()
 
-        if is_fly:
-            speed *= 1.2
-            if direction == 'UP':
-                new_y = y_coord + speed
-                new_x = x_coord
-            elif direction == 'DOWN':
-                new_y = y_coord - speed
-                new_x = x_coord
-            elif direction == 'LEFT':
-                new_y = y_coord
-                new_x = x_coord - speed
-            elif direction == 'RIGTH':
-                new_y = y_coord
-                new_x = x_coord + speed
-        if crawl:
-            speed *= 0.5
-            if direction == 'UP':
-                new_y = y_coord + speed
-                new_x = x_coord
-            elif direction == 'DOWN':
-                new_y = y_coord - speed
-                new_x = x_coord
-            elif direction == 'LEFT':
-                new_y = y_coord
-                new_x = x_coord - speed
-            elif direction == 'RIGTH':
-                new_y = y_coord
-                new_x = x_coord + speed
+        if direction == 'UP':
+            self._field.set_unit(x=x_coord, y=y_coord + speed, unit=self)
+        elif direction == 'DOWN':
+            self._field.set_unit(x=x_coord, y=y_coord - speed, unit=self)
+        elif direction == 'LEFT':
+            self._field.set_unit(x=x_coord - speed, y=y_coord, unit=self)
+        elif direction == 'RIGTH':
+            self._field.set_unit(x=x_coord + speed, y=y_coord, unit=self)
 
-            field.set_unit(x=new_x, y=new_y, unit=self)
-
-#     ...
+    def _get_speed(self) -> float | Exception:
+        if self._type == 'fly':
+            return self._speed * 1.2
+        elif self._type == 'crawl':
+            return self._speed * 0.5
+        else:
+            return ValueError('Рожденный ползать летать не должен!')
